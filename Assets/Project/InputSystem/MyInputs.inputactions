@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "FireAlt",
+                    "type": "Button",
+                    "id": "00abbd65-327b-49b7-b3f7-29a68d1985d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "f4122386-8747-4895-b26a-9df921eeb8ed",
@@ -219,7 +228,7 @@
                     "name": "",
                     "id": "5ae6a21e-66e3-472f-9a09-e7e66474b3d3",
                     "path": "<Keyboard>/space",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Jump",
@@ -245,6 +254,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a245c30b-2188-4c81-bbd9-3c5bab20e1ad",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "FireAlt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

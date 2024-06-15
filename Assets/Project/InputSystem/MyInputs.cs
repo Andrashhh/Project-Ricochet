@@ -57,6 +57,15 @@ namespace Ricochet.KinematicC
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""FireAlt"",
+                    ""type"": ""Button"",
+                    ""id"": ""00abbd65-327b-49b7-b3f7-29a68d1985d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""f4122386-8747-4895-b26a-9df921eeb8ed"",
@@ -243,7 +252,7 @@ namespace Ricochet.KinematicC
                     ""name"": """",
                     ""id"": ""5ae6a21e-66e3-472f-9a09-e7e66474b3d3"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Jump"",
@@ -269,6 +278,17 @@ namespace Ricochet.KinematicC
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a245c30b-2188-4c81-bbd9-3c5bab20e1ad"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""FireAlt"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -857,6 +877,7 @@ namespace Ricochet.KinematicC
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_FireAlt = m_Player.FindAction("FireAlt", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
@@ -937,6 +958,7 @@ namespace Ricochet.KinematicC
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_FireAlt;
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Crouch;
         private readonly InputAction m_Player_Sprint;
@@ -947,6 +969,7 @@ namespace Ricochet.KinematicC
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @FireAlt => m_Wrapper.m_Player_FireAlt;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
             public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
@@ -968,6 +991,9 @@ namespace Ricochet.KinematicC
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @FireAlt.started += instance.OnFireAlt;
+                @FireAlt.performed += instance.OnFireAlt;
+                @FireAlt.canceled += instance.OnFireAlt;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
@@ -990,6 +1016,9 @@ namespace Ricochet.KinematicC
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
+                @FireAlt.started -= instance.OnFireAlt;
+                @FireAlt.performed -= instance.OnFireAlt;
+                @FireAlt.canceled -= instance.OnFireAlt;
                 @Jump.started -= instance.OnJump;
                 @Jump.performed -= instance.OnJump;
                 @Jump.canceled -= instance.OnJump;
@@ -1165,6 +1194,7 @@ namespace Ricochet.KinematicC
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
+            void OnFireAlt(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
