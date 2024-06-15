@@ -5,6 +5,9 @@ using Ricochet;
 using Ricochet.KinematicC;
 using UnityEngine.InputSystem;
 using System;
+using UnityEngine.Rendering.VirtualTexturing;
+using Unity.VisualScripting;
+using Ricochet.Input;
 
 namespace Ricochet.KinematicC
 {
@@ -13,13 +16,19 @@ namespace Ricochet.KinematicC
         public CharacterController Character;
         public CharacterCamera CharacterCamera;
 
-        public InputActionAsset InputActionAsset;
+        PlayerInputHandler m_PlayerInputHandler;
 
         private const string MouseXInput = "Mouse X";
         private const string MouseYInput = "Mouse Y";
         private const string MouseScrollInput = "Mouse ScrollWheel";
         private const string HorizontalInput = "Horizontal";
         private const string VerticalInput = "Vertical";
+
+        private bool isJumping;
+
+        private void Awake() {
+            m_PlayerInputHandler = PlayerInputHandler.Instance;
+        }
 
         private void Start()
         {
@@ -85,19 +94,18 @@ namespace Ricochet.KinematicC
         {
             PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
+            
 
             // Build the CharacterInputs struct
             characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
             characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
             characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
-            //characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
+            characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
             characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
             characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);
         }
-
-        
     }
 }

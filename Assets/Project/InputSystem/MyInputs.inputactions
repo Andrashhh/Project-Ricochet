@@ -1,5 +1,5 @@
 {
-    "name": "InputActionsAsset",
+    "name": "MyInputs",
     "maps": [
         {
             "name": "Player",
@@ -219,7 +219,7 @@
                     "name": "",
                     "id": "5ae6a21e-66e3-472f-9a09-e7e66474b3d3",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Jump",
