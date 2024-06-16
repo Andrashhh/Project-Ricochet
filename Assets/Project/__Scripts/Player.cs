@@ -38,7 +38,7 @@ namespace Ricochet.KinematicC
 
         private void Update()
         {
-            if (m_PlayerInputHandler.m_FireAltInput)
+            if (m_PlayerInputHandler.m_FireInput)
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
@@ -48,14 +48,17 @@ namespace Ricochet.KinematicC
 
         private void LateUpdate()
         {
+
+            HandleCameraRotating();
+            HandleCameraInput();
+        }
+
+        private void HandleCameraRotating() {
             // Handle rotating the camera along with physics movers
-            if (CharacterCamera.RotateWithPhysicsMover && Character.Motor.AttachedRigidbody != null)
-            {
+            if(CharacterCamera.RotateWithPhysicsMover && Character.Motor.AttachedRigidbody != null) {
                 CharacterCamera.PlanarDirection = Character.Motor.AttachedRigidbody.GetComponent<PhysicsMover>().RotationDeltaFromInterpolation * CharacterCamera.PlanarDirection;
                 CharacterCamera.PlanarDirection = Vector3.ProjectOnPlane(CharacterCamera.PlanarDirection, Character.Motor.CharacterUp).normalized;
             }
-
-            HandleCameraInput();
         }
 
         private void HandleCameraInput()
@@ -78,11 +81,6 @@ namespace Ricochet.KinematicC
             // Apply inputs to the camera
             CharacterCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector);
 
-            // Handle toggling zoom level
-            if (m_PlayerInputHandler.m_FireInput)
-            {
-                CharacterCamera.TargetDistance = (CharacterCamera.TargetDistance == 0f) ? CharacterCamera.DefaultDistance : 0f;
-            }
         }
 
         private void HandleCharacterInput()

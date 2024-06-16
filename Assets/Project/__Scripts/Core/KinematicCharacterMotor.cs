@@ -726,7 +726,6 @@ namespace Ricochet
 
             Capsule.radius = CapsuleRadius;
             Capsule.height = Mathf.Clamp(CapsuleHeight, CapsuleRadius * 2f, CapsuleHeight);
-            Debug.Log(yOffset);
             Capsule.center = new Vector3(0f, CapsuleYOffset, 0f);
 
             _characterTransformToCapsuleCenter = Capsule.center;
