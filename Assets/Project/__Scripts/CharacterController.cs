@@ -189,7 +189,7 @@ namespace Ricochet.KinematicC
                                 MeshRoot.localScale = new Vector3(1f, 0.5f, 1f);
                             }
                         }
-                        else if (inputs.CrouchUp)
+                        else if (!inputs.CrouchDown)
                         {
                             _shouldBeCrouching = false;
                         }
