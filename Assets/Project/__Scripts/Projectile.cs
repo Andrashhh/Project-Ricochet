@@ -1,7 +1,11 @@
+using Cinemachine.Utility;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Ricochet
 {
@@ -9,22 +13,35 @@ namespace Ricochet
     {
         GameObject _startObject;
         GameObject _targetObject;
-        Vector3 _targetDirection; 
-        float _speed;
+        public GameObject _headObject;
+        Vector3 _targetDirection;
+        
+        [SerializeField] float _speed = 4;
+        [SerializeField] float _rotateSpeed = 4;
+
+
+
+        Vector3 velocity = Vector3.zero;
 
         Rigidbody _rb;
 
         void Awake() {
             _startObject = gameObject;
-            _targetObject = GameObject.FindGameObjectWithTag("Player");
+            _targetObject = GameObject.FindGameObjectWithTag("KokTarget");
             _rb = GetComponent<Rigidbody>();
+            
         }
 
-        void Update() {
-            _targetDirection = _targetObject.transform.position - _startObject.transform.position;
+        void FixedUpdate() {
+            HomingLogic();
+        }
 
-            _rb.AddForce(_targetDirection, ForceMode.Force);
-            Debug.DrawRay(_targetObject.transform.position, _targetDirection, Color.green);
+        void HomingLogic() {
+            Vector3 distance = (_targetObject.transform.position - transform.position).normalized;
+            Vector3 finalDistance = (distance - transform.forward);
+
+            _rb.velocity += (transform.forward * _speed) + (distance * (_speed * 0.98f) + (finalDistance * (_speed * 0.98f) * _rotateSpeed));
+            _rb.MoveRotation(Quaternion.LookRotation(_rb.velocity, Vector3.up));
         }
 
         void OnCollisionEnter(Collision collision) {
@@ -32,3 +49,4 @@ namespace Ricochet
         }
     }
 }
+
